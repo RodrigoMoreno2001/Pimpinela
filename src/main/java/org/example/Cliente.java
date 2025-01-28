@@ -3,8 +3,17 @@ package org.example;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
-
+/**
+ * Clase Cliente que implementa un cliente basado en sockets para interactuar con el servidor.
+ */
 public class Cliente {
+
+    /**
+     * Punto de entrada principal para iniciar el cliente.
+     * El cliente se conecta a un servidor en un host y puerto específicos,
+     * envía mensajes seleccionados por el usuario y recibe respuestas del servidor.
+     */
+
     public static void main(String[] args) {
         String HOST="localhost";
         int PUERTO=25000;
@@ -21,7 +30,7 @@ public class Cliente {
 
                 salida.writeUTF(listarOpciones(pimpinellaCliente,ints));
                 String respuesta=entrada.readUTF();
-                System.out.println(respuesta);
+                System.out.println("Servidor: "+respuesta);
                 if(respuesta.equals("Por eso vete, olvida mi nombre, mi cara, mi casa y pega la vuelta")) activo=false;
 
             }
@@ -30,11 +39,18 @@ public class Cliente {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Muestra al usuario distintas opciones dadas por un array
+     * y pide por teclado que elija una de las opciones
+     *
+     * @param arr  array de opciones disponibles.
+     * @param ints objeto Scanner para leer la entrada del usuario.
+     * @return la opción seleccionada por el usuario.
+     */
     static String listarOpciones(String[] arr, Scanner ints){
         int opcion=0;
         do{
-            System.out.println(opcion<0||opcion>=arr.length?"ELIGE UNA OPCION VÁLIDA:":"Elige una opción:");
+            System.out.println(opcion<0||opcion>=arr.length?"ELIGE UNA OPCION VALIDA:":"Elige una opción:");
             for(int i=0;i<arr.length;i++) System.out.println((i+1)+".-"+arr[i]);
             try{
                 opcion=ints.nextInt()-1;
@@ -46,5 +62,4 @@ public class Cliente {
 
         return arr[opcion];
     }
-
 }
